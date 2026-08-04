@@ -27,21 +27,14 @@ false discovery rate correction and rests on a small exposed group (46 of 862 pa
 
 ```
 README.md            this file
-requirements.txt      Python packages used by the analysis
-LICENSE               license for this code (see below)
-CITATION.cff          how to cite this repository
-src/
-  common.py            shared definitions: imports, constants, and the ~40 analysis functions
-                        (SOFA scoring, MICE imputation, Cox model wrappers, effect-size and
-                        multiplicity-correction helpers, table/figure builders)
-  selftest.py          runs common.py against synthetic data to confirm the module loads and
-                        every function executes end to end. It does not reproduce the paper's
-                        numbers; it only confirms that the code runs
-notebooks/
-  analysis.ipynb        the full analysis, organized into 8 labeled sections (data loading through
-                         revision-response sensitivity analyses). Each code cell is tagged with the
-                         index it held in the original submission notebook, so a reviewer can trace
-                         any number in the paper back to the exact cell that produced it
+__init__.py          package marker
+common.py            shared definitions: imports, constants, and the ~40 analysis functions
+                     (SOFA scoring, MICE imputation, Cox model wrappers, effect-size and
+                     multiplicity-correction helpers, table/figure builders)
+analysis.ipynb       the full analysis, organized into 8 labeled sections (data loading through
+                     revision-response sensitivity analyses). Each code cell is tagged with the
+                     index it held in the original submission notebook, so a reviewer can trace
+                     any number in the paper back to the exact cell that produced it
 ```
 
 This is a reassembly of the notebook used to produce the submitted manuscript. The reassembly
@@ -86,29 +79,31 @@ it does not affect any computation, only where the code looks for input files.
 
 ## Environment
 
-- Python: the original notebook's kernel reports **3.11.15**; `requirements.txt` targets that version.
-- Packages: see `requirements.txt`. **`lifelines>=0.30` is required** — a code comment in the
-  analysis (Tier 2 fitting step) notes that `CoxTimeVaryingFitter.fit(robust=True)` raises
-  `NotImplementedError` on `lifelines` 0.30, and the code branches on that behavior.
-- Package versions are recorded in `requirements.txt`.
+- **Python 3.11.15** — the version reported by the kernel that produced the submitted results.
+- Packages (no pinned versions are shipped; the list below is what the analysis imports):
+
+  | Package | Used for |
+  |---|---|
+  | `numpy`, `pandas` | data handling |
+  | `matplotlib` | figures |
+  | `scipy` | statistical distributions and tests |
+  | **`lifelines` (>= 0.30)** | Cox and time-varying Cox models |
+  | `scikit-learn` | `IterativeImputer` (experimental API), `BayesianRidge`, `LogisticRegression`, `roc_auc_score` |
+  | `statsmodels` | `multipletests` (Benjamini-Hochberg FDR) |
+
+- **`lifelines>=0.30` matters.** A comment in the Tier 2 fitting step notes that
+  `CoxTimeVaryingFitter.fit(robust=True)` raises `NotImplementedError` on `lifelines` 0.30, and the
+  code branches on that behavior. On an older version that branch is not taken and the
+  cluster-robust step behaves differently.
 
 ## How to run
 
-1. `pip install -r requirements.txt`
+1. Install the packages listed under [Environment](#environment) into a Python 3.11 environment.
 2. Set `MIMIC4_PATH` and `EICU_PATH` (see [Data access](#data-access)).
 3. Open `notebooks/analysis.ipynb` in Jupyter with the working directory set to `notebooks/`. The
    first code cell adds `../src` to the import path; if you run the notebook a different way,
-   adjust that cell.
-4. Run every cell from top to bottom. Cells share variables the way the original notebook did
-   (`c`, `cmeas`, `tmp`, `r_main`, and others are defined in one cell and reused later), so running
-   out of order will raise `NameError`.
-5. `src/common.py` sets `REBUILD = False` by default, which reuses cached intermediate files if
-   present. Set it to `True` to rebuild the cohort from raw data (needed on first run, or after
-   the source data changes).
-
-Figures are written to `notebooks/figs/` (created automatically on import). Cached intermediate
-cohort files are written to `notebooks/cache_final/`. Neither is included in this repository —
-both are derived from patient-level data.
+   adjust that line.
+4. Run the cells from top to bottom.
 
 ## Reproducibility note
 
@@ -121,25 +116,42 @@ ratio of 1.449 [1.011 to 2.079]) and no conclusion depends on the difference.
 | Included | Not included |
 |---|---|
 | Analysis code (`src/`, `notebooks/analysis.ipynb`) | MIMIC-IV and eICU source data (PhysioNet credentialed access, redistribution prohibited) |
-| This README, `requirements.txt`, `LICENSE`, `CITATION.cff` | Patient-level or cohort-intermediate files (`cache_final/`, `figs/`, any `.parquet`) |
+| This README | Patient-level or cohort-intermediate files (`cache_final/`, `figs/`, any `.parquet`) |
 | — | Prior notebook execution outputs — all cell outputs were cleared before release |
 | — | Internal file-server paths or hostnames |
 
 A file-level scan for internal paths, IP addresses, credentials, and non-empty notebook outputs
-was run before release using `check_leak.py` in this repository's source tree (not included in
-the release archive itself, since it is a development-time check rather than part of the analysis).
+was run before release. The scanning script is a development-time check and is not part of the
+analysis, so it is not included here.
 
 ## License
 
-This code is released under the **MIT License**. See `LICENSE`.
+**MIT License. Copyright (c) 2026 the authors of the associated manuscript.**
 
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+associated documentation files (the "Software"), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge, publish, distribute,
+sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or
+substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT
+OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ## How to cite
 
-See `CITATION.cff`. A Zenodo DOI for this code will be added here once the repository is archived.
+Please cite the associated manuscript once it is published. Until then, cite this repository by
+its URL. On acceptance the repository will be archived on Zenodo and a citable DOI will be added
+here.
 
 ## Code availability statement (for the manuscript)
 
-> The analysis code is available at [Zenodo DOI, to be added on deposit]. The MIMIC-IV and eICU
+> The analysis code is available at https://gitfront.io/r/inyong/u4gFr7V3yUcQ/CRRT-TMP/ and, on
+> acceptance, at https://github.com/5454dls/CRRT_TMP with a Zenodo DOI added on deposit. The MIMIC-IV and eICU
 > databases are publicly available through PhysioNet (https://physionet.org/) after completion of
 > required training and a data use agreement; they are not redistributed with this repository.
