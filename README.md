@@ -87,19 +87,6 @@ it does not affect any computation, only where the code looks for input files.
   | `scikit-learn` | `IterativeImputer` (experimental API), `BayesianRidge`, `LogisticRegression`, `roc_auc_score` |
   | `statsmodels` | `multipletests` (Benjamini-Hochberg FDR) |
 
-## What is and is not in this repository
-
-| Included | Not included |
-|---|---|
-| Analysis code (`src/`, `notebooks/analysis.ipynb`) | MIMIC-IV and eICU source data (PhysioNet credentialed access, redistribution prohibited) |
-| This README | Patient-level or cohort-intermediate files (`cache_final/`, `figs/`, any `.parquet`) |
-| — | Prior notebook execution outputs — all cell outputs were cleared before release |
-| — | Internal file-server paths or hostnames |
-
-A file-level scan for internal paths, IP addresses, credentials, and non-empty notebook outputs
-was run before release. The scanning script is a development-time check and is not part of the
-analysis, so it is not included here.
-
 ## License
 
 **MIT License. Copyright (c) 2026 the authors of the associated manuscript.**
