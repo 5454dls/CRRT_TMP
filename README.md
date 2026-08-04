@@ -87,26 +87,6 @@ it does not affect any computation, only where the code looks for input files.
   | `scikit-learn` | `IterativeImputer` (experimental API), `BayesianRidge`, `LogisticRegression`, `roc_auc_score` |
   | `statsmodels` | `multipletests` (Benjamini-Hochberg FDR) |
 
-- **`lifelines>=0.30` matters.** A comment in the Tier 2 fitting step notes that
-  `CoxTimeVaryingFitter.fit(robust=True)` raises `NotImplementedError` on `lifelines` 0.30, and the
-  code branches on that behavior. On an older version that branch is not taken and the
-  cluster-robust step behaves differently.
-
-## How to run
-
-1. Install the packages listed under [Environment](#environment) into a Python 3.11 environment.
-2. Set `MIMIC4_PATH` and `EICU_PATH` (see [Data access](#data-access)).
-3. Open `notebooks/analysis.ipynb` in Jupyter with the working directory set to `notebooks/`. The
-   first code cell adds `../src` to the import path; if you run the notebook a different way,
-   adjust that line.
-4. Run the cells from top to bottom.
-
-## Reproducibility note
-
-Minor differences in the computing environment change some estimates in the third decimal place,
-so the published paper reports the values produced by this code (for example, a primary hazard
-ratio of 1.449 [1.011 to 2.079]) and no conclusion depends on the difference.
-
 ## What is and is not in this repository
 
 | Included | Not included |
