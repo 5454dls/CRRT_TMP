@@ -1,6 +1,7 @@
 # Cumulative operating time and early transmembrane pressure surge in relation to mortality during continuous renal replacement therapy
 
 > Dong-Seop Kim, Inyong Jeong, Nam-Jun Cho, Jin-Hyun Park, Yeongmin Kim, MyeongGyun Jang, Hwamin Lee, Hyo-Wook Gil.
+>
 > *Scientific Reports* (under revision as of this release).
 
 ## What the study does
