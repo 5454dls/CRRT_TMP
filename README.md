@@ -37,11 +37,7 @@ analysis.ipynb       the full analysis, organized into 8 labeled sections (data 
                      any number in the paper back to the exact cell that produced it
 ```
 
-This is a reassembly of the notebook used to produce the submitted manuscript. The reassembly
-moved only the definitions (imports, constants, functions — no computation) into `src/common.py`;
-every other cell is copied verbatim from the original, in original order. The only text change
-anywhere in the code is two file-path lines, described under [Data access](#data-access). No
-numeric result, formula, or default parameter was altered.
+This is a reassembly of the notebook used to produce the submitted manuscript.
 
 ## What each part of the notebook produces
 
