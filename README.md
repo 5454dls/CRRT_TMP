@@ -1,7 +1,7 @@
 # Cumulative operating time and early transmembrane pressure surge in relation to mortality during continuous renal replacement therapy
 
 > Dong-Seop Kim, Inyong Jeong, Nam-Jun Cho, Jin-Hyun Park, Yeongmin Kim, MyeongGyun Jang, Hwamin Lee, Hyo-Wook Gil.
->
+> 
 > *Scientific Reports* (under revision as of this release).
 
 ## What the study does
@@ -35,6 +35,18 @@ analysis.ipynb       the analysis: primary models, sensitivity and robustness an
 MIMIC-IV (v2.2) and the eICU Collaborative Research Database are PhysioNet credentialed-access
 datasets and are not redistributed here. They are available at https://physionet.org/ after the
 required training and a data use agreement.
+
+
+### Inputs
+
+| File (`common.py` constant) | One row per | Required columns | Used in |
+|---|---|---|---|
+| `cohort_final_v2.parquet` (`COHORT_PARQUET`) | ICU stay | `stay_id`, `t0`, plus the outcome/covariate columns named in `CONT_M`/`BIN_M`/`DEMO_*`/`SEV_*`/`LAB_C`/`TX_*` and the endpoint columns referenced throughout the notebook (e.g. `end28_h`, `event28`, `end_inhosp_h`, `death_inhosp`) | Sections 1-5 (`c`, `cmeas`, `tmp`, `XC_MEAS`, `XC_C`, `XC_BASE` are derived from this table upstream; its full column list is the cohort-construction step's contract, not part of this release) |
+| `crrt_procedure_intervals.parquet` (`CRRT_PROC_PARQUET`) | one CRRT operating interval, procedure-chart definition | `stay_id` (int), `starttime` (datetime), `endtime` (datetime, `> starttime`) | Section 1 (Tier 1 MIMIC-IV grid, `source="procedure"`) |
+| `crrt_input_intervals.parquet` (`CRRT_INPUT_PARQUET`) | one CRRT operating interval, anticoagulant/replacement-fluid infusion definition | same schema as above | Section 1 (Tier 1 MIMIC-IV grid, `source="input_union"`) |
+| `eicu_cohort.parquet` (`EICU_COHORT_PARQUET`) | eICU CRRT patient | `patientunitstayid`, `t0_off`, `term_off`, `n_rec`, `med_gap_min` (minutes, may be null), `disch_h`, `event` (0/1, in-hospital death), `end_h` (hours), plus the covariates in `CONT_E` (`age_num`, `weight_kg`, `aps`, `map_value`, `platelet`, `hemoglobin`, `lactate`, `inr`, `aptt`, `bilirubin`) and `BIN_E` (`male`, `vaso_use`, `mech_vent`, `v3_systemic_hep`) | Section 1 (Tier 1 eICU grid) |
+
+see the manuscript's Methods for how each column is derived from the raw PhysioNet tables.
 
 ## Requirements
 
