@@ -1,13 +1,3 @@
-"""CRRT/TMP analysis: shared definitions (imports, constants, functions).
-
-This module is `analysis.ipynb`'s first cell, extracted so the notebook can
-`from common import *`. All heavy inputs (the MIMIC-IV cohort table and the
-CRRT operating-time / eICU cohort tables) are read as prepared, relative
-parquet files -- see README.md "Prepared inputs" for their column schema.
-This module itself never reads MIMIC-IV or eICU raw tables.
-"""
-
-
 import time
 import warnings
 from pathlib import Path
@@ -44,10 +34,7 @@ WINDOWS   = [6, 12, 18, 24, 48]
 CACHE      = Path("cache_final"); CACHE.mkdir(exist_ok=True)
 FIGDIR     = Path("figs");        FIGDIR.mkdir(exist_ok=True)
 
-# Prepared analysis inputs. Relative filenames, read from the working directory
-# (same convention as COHORT_PARQUET below). Produced by the cohort-construction
-# step, which is not part of this repository. See README.md "Prepared inputs"
-# for the column schema each file must have.
+# Prepared data
 COHORT_PARQUET      = "cohort_final_v2.parquet"           # MIMIC-IV cohort (source of c / cmeas / tmp)
 CRRT_PROC_PARQUET   = "crrt_procedure_intervals.parquet"  # MIMIC-IV CRRT procedure-chart operating intervals
 CRRT_INPUT_PARQUET  = "crrt_input_intervals.parquet"      # MIMIC-IV CRRT anticoagulant/replacement-fluid infusion intervals
