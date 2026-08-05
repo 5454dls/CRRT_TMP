@@ -22,7 +22,6 @@ false discovery rate correction and rests on a small exposed group (46 of 862 pa
 
 ```
 README.md            this file
-__init__.py          package marker
 common.py            imports, constants, and the analysis functions (SOFA scoring, MICE
                      imputation, Cox model wrappers, effect-size and multiplicity-correction
                      helpers, table and figure builders)
