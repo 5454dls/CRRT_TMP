@@ -2,7 +2,7 @@
 
 > Dong-Seop Kim, Inyong Jeong, Nam-Jun Cho, Jin-Hyun Park, Yeongmin Kim, MyeongGyun Jang, Hwamin Lee, Hyo-Wook Gil.
 > 
-> *Scientific Reports* (under revision as of this release).
+> *Scientific Reports*
 
 ## What the study does
 
@@ -73,8 +73,3 @@ NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPO
 NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
 DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT
 OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-## How to cite
-
-Please cite the associated manuscript once it is published. Until then, cite this repository by its
-URL. On acceptance the repository will be archived on Zenodo and a citable DOI will be added here.
